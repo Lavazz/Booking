@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bookingFacade" class="com.epam.training.facade.BookingFacadeImpl" scope="singleton">
+        <constructor-arg name="userService" ref="userService"/>
+        <constructor-arg name="eventService" ref="eventService"/>
+        <constructor-arg name="ticketService" ref="ticketService"/>
+    </bean>
+
+    <bean id="eventService" class="com.epam.training.service.event.EventServiceImpl" scope="singleton">
+        <constructor-arg name="eventDao" ref="eventDao"/>
+    </bean>
+
+    <bean id="userService" class="com.epam.training.service.user.UserServiceImpl" scope="singleton">
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="ticketService" class="com.epam.training.service.ticket.TicketServiceImpl">
+        <constructor-arg name="ticketDao" ref="ticketDao"/>
+    </bean>
+
+    <bean id="eventDao" class="com.epam.training.dao.event.EventDaoImpl" scope="singleton">
+        <constructor-arg name="eventStorage" ref="eventStorage"/>
+    </bean>
+
+    <bean id="userDao" class="com.epam.training.dao.user.UserDaoImpl">
+        <constructor-arg name="userStorage" ref="userStorage"/>
+    </bean>
+
+    <bean id="ticketDao" class="com.epam.training.dao.ticket.TicketDaoImpl">
+        <constructor-arg name="ticketStorage" ref="ticketStorage"/>
+    </bean>
+
+<!--    <bean id="bookingStorage" class="com.epam.training.storage.BookingStorageImpl">-->
+<!--        <constructor-arg name="eventStorage" ref="eventStorage"/>-->
+<!--        <constructor-arg name="userStorage" ref="userStorage"/>-->
+<!--        <constructor-arg name="ticketStorage" ref="ticketStorage"/>-->
+<!--    </bean>-->
+
+    <bean id="ticketStorage" class="com.epam.training.storage.ticket.TicketStorageImpl"/>
+    <bean id="userStorage" class="com.epam.training.storage.user.UserStorageImpl"/>
+    <bean id="eventStorage" class="com.epam.training.storage.event.EventStorageImpl"/>
+
+
+</beans>
