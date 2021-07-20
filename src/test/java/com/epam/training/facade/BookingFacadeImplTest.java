@@ -27,9 +27,9 @@ import static com.epam.training.model.ticket.Ticket.Category.*;
 
 public class BookingFacadeImplTest {
 
-    ApplicationContext context;
-    UserStorage bookingStorage;
-    BookingFacade bookingFacade;
+    private ApplicationContext context;
+    private UserStorage bookingStorage;
+    private BookingFacade bookingFacade;
 
     @Before
     public void setUp() throws BeansException {

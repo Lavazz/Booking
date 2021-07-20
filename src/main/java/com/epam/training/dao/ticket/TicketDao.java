@@ -3,7 +3,6 @@ package com.epam.training.dao.ticket;
 import com.epam.training.model.ticket.Ticket;
 
 import java.util.List;
-import java.util.Map;
 
 public interface TicketDao {
 
@@ -14,7 +13,5 @@ public interface TicketDao {
     List<Ticket> findAll();
 
     Ticket getTicketById(long ticketId);
-
-    Map<Long, Ticket> getTickets();
 
 }

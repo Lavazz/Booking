@@ -3,7 +3,6 @@ package com.epam.training.dao.user;
 import com.epam.training.model.user.User;
 
 import java.util.List;
-import java.util.Map;
 
 public interface UserDao {
 
@@ -17,5 +16,4 @@ public interface UserDao {
 
     List<User> findAll();
 
-    Map<Long, User> getUsers();
 }

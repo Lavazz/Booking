@@ -5,7 +5,6 @@ import com.epam.training.storage.ticket.TicketStorage;
 import com.epam.training.storage.ticket.TicketStorageImpl;
 
 import java.util.List;
-import java.util.Map;
 
 public class TicketDaoImpl implements TicketDao {
 
@@ -35,8 +34,4 @@ public class TicketDaoImpl implements TicketDao {
         return ticketStorage.getTicketById(ticketId);
     }
 
-    @Override
-    public Map<Long, Ticket> getTickets() {
-        return ticketStorage.getTickets();
-    }
 }

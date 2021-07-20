@@ -5,7 +5,6 @@ import com.epam.training.storage.event.EventStorage;
 import com.epam.training.storage.event.EventStorageImpl;
 
 import java.util.List;
-import java.util.Map;
 
 public class EventDaoImpl implements EventDao {
 
@@ -38,11 +37,6 @@ public class EventDaoImpl implements EventDao {
     @Override
     public List<Event> findAll() {
         return eventStorage.findAllEvents();
-    }
-
-    @Override
-    public Map<Long, Event> getEvents() {
-        return eventStorage.getEvents();
     }
 
 }

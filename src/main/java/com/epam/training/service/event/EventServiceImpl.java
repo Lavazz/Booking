@@ -1,25 +1,20 @@
 package com.epam.training.service.event;
 
 import com.epam.training.dao.event.EventDao;
-import com.epam.training.dao.event.EventDaoImpl;
 import com.epam.training.model.event.Event;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
+@Slf4j
 public class EventServiceImpl implements EventService {
 
     private final EventDao eventDao;
-    private final Log LOGGER = LogFactory.getLog(EventServiceImpl.class);
-
-
-    public EventServiceImpl(EventDaoImpl eventDao) {
-        this.eventDao = eventDao;
-    }
 
     @Override
     public Event getEventById(long eventId) {
@@ -46,15 +41,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event createEvent(Event event) {
-        long id = new Random().nextLong();
-
+        long id =  new Random().nextLong();
         if (isExist(id)) {
             createEvent(event);
         } else {
             event.setId(id);
         }
         eventDao.createEvent(event);
-        LOGGER.info("Event created successfully. Event details: " + event.toString());
+        log.info("Event created successfully. Event details: {}", event.toString());
 
         return eventDao.getEventById(event.getId());
     }
@@ -69,7 +63,7 @@ public class EventServiceImpl implements EventService {
         return eventDao.deleteEvent(eventId);
     }
 
-    private boolean isExist(long id) {
+    boolean isExist(long id) {
         List<Event> eventList = eventDao.findAll();
         for (Event event : eventList) {
             if (event.getId() == id) {
@@ -78,4 +72,5 @@ public class EventServiceImpl implements EventService {
         }
         return false;
     }
+
 }

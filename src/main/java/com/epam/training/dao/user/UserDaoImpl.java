@@ -5,7 +5,6 @@ import com.epam.training.storage.user.UserStorage;
 import com.epam.training.storage.user.UserStorageImpl;
 
 import java.util.List;
-import java.util.Map;
 
 public class UserDaoImpl implements UserDao {
 
@@ -40,8 +39,4 @@ public class UserDaoImpl implements UserDao {
         return userStorage.findAll();
     }
 
-    @Override
-    public Map<Long, User> getUsers() {
-        return userStorage.getUsers();
-    }
 }

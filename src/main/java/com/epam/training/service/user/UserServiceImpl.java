@@ -2,13 +2,13 @@ package com.epam.training.service.user;
 
 import com.epam.training.dao.user.UserDao;
 import com.epam.training.model.user.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
@@ -17,32 +17,29 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    private static final Log LOGGER = LogFactory.getLog(UserService.class);
-
     @Override
     public User getUserById(long userId) {
         User user = userDao.getUserById(userId);
         if (user == null) {
-            LOGGER.error("User not found.");
+            log.error("User not found.");
             throw new IllegalStateException();
         }
 
-        LOGGER.info("User found: " + user.toString());
+        log.info("User found: {}",  user.toString());
 
         return user;
     }
-
 
     @Override
     public User getUserByEmail(String email) {
 
         for (User user : userDao.findAll()) {
             if (user.getEmail().equals(email)) {
-                LOGGER.info("User found: " + user.toString());
+                log.info("User found: {}", user.toString());
                 return user;
             }
         }
-        LOGGER.error("User not found.");
+        log.error("User not found.");
         throw new IllegalStateException();
     }
 
@@ -56,8 +53,7 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        LOGGER.info(String.format("%s user(s) found: ", foundUsers.size()));
-        foundUsers.forEach(LOGGER::info);
+        log.info(String.format("%s user(s) found: ", foundUsers.size()));
 
         return foundUsers;
     }
@@ -71,12 +67,12 @@ public class UserServiceImpl implements UserService {
             user.setId(id);
         }
         if (!isMailFree(user)) {
-            LOGGER.error("User not created because of provided email address already used.");
+            log.error("User not created because of provided email address already used.");
             throw new IllegalStateException();
         }
 
         userDao.createUser(user);
-        LOGGER.info("User created successfully. User details: " + user.toString());
+        log.info("User created successfully. User details:{} ", user.toString());
 
         return userDao.getUserById(user.getId());
     }
@@ -91,7 +87,7 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteUser(userId);
     }
 
-    private boolean isExist(long id) {
+    boolean isExist(long id) {
         List<User> userList = userDao.findAll();
         for (User user : userList) {
             if (user.getId() == id) {

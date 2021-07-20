@@ -6,8 +6,7 @@ import com.epam.training.model.event.Event;
 import com.epam.training.model.ticket.Ticket;
 import com.epam.training.model.ticket.TicketImpl;
 import com.epam.training.model.user.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,11 +14,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class TicketServiceImpl implements TicketService {
 
     private final TicketDao ticketDao;
-
-    private static final Log LOGGER = LogFactory.getLog(TicketService.class);
 
     public TicketServiceImpl(TicketDaoImpl ticketDao) {
         this.ticketDao = ticketDao;
@@ -30,7 +28,7 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = new TicketImpl(userId, eventId, place, category);
 
         if (!isPlaceFree(ticket)) {
-            LOGGER.error(
+            log.error(
                     String.format("Ticket booking failed. Place %s is already booked.", ticket.getPlace()));
             throw new IllegalStateException();
         }
@@ -41,7 +39,7 @@ public class TicketServiceImpl implements TicketService {
             ticket.setId(id);
         }
         ticketDao.bookTicket(ticket);
-        LOGGER.info("Ticket booked successfully. Ticket details: " + ticket.toString());
+        log.info("Ticket booked successfully. Ticket details: {}" , ticket.toString());
 
         return ticketDao.getTicketById(id);
     }
@@ -60,8 +58,7 @@ public class TicketServiceImpl implements TicketService {
                 .sorted(Comparator.comparingLong(Ticket::getId))
                 .collect(Collectors.toList());
 
-        LOGGER.info(String.format("%s ticket(s) found: ", sortTickets.size()));
-        sortTickets.forEach(LOGGER::info);
+        log.info(String.format("%s ticket(s) found: ", sortTickets.size()));
 
         return sortTickets;
     }
@@ -81,8 +78,7 @@ public class TicketServiceImpl implements TicketService {
                 .sorted(Comparator.comparingLong(Ticket::getId))
                 .collect(Collectors.toList());
 
-        LOGGER.info(String.format("%s ticket(s) found: ", tickets.size()));
-        sortTickets.forEach(LOGGER::info);
+        log.info(String.format("%s ticket(s) found: ", tickets.size()));
 
         return sortTickets;
     }

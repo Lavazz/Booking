@@ -4,17 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	  http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="bookingFacade" class="com.epam.training.facade.BookingFacadeImpl" scope="singleton">
+    <bean id="bookingFacade" class="com.epam.training.facade.BookingFacadeImpl">
         <constructor-arg name="userService" ref="userService"/>
         <constructor-arg name="eventService" ref="eventService"/>
         <constructor-arg name="ticketService" ref="ticketService"/>
     </bean>
 
-    <bean id="eventService" class="com.epam.training.service.event.EventServiceImpl" scope="singleton">
+    <bean id="eventService" class="com.epam.training.service.event.EventServiceImpl">
         <constructor-arg name="eventDao" ref="eventDao"/>
     </bean>
 
-    <bean id="userService" class="com.epam.training.service.user.UserServiceImpl" scope="singleton">
+    <bean id="userService" class="com.epam.training.service.user.UserServiceImpl">
         <constructor-arg name="userDao" ref="userDao"/>
     </bean>
 
@@ -22,7 +22,7 @@
         <constructor-arg name="ticketDao" ref="ticketDao"/>
     </bean>
 
-    <bean id="eventDao" class="com.epam.training.dao.event.EventDaoImpl" scope="singleton">
+    <bean id="eventDao" class="com.epam.training.dao.event.EventDaoImpl" >
         <constructor-arg name="eventStorage" ref="eventStorage"/>
     </bean>
 
@@ -34,15 +34,8 @@
         <constructor-arg name="ticketStorage" ref="ticketStorage"/>
     </bean>
 
-<!--    <bean id="bookingStorage" class="com.epam.training.storage.BookingStorageImpl">-->
-<!--        <constructor-arg name="eventStorage" ref="eventStorage"/>-->
-<!--        <constructor-arg name="userStorage" ref="userStorage"/>-->
-<!--        <constructor-arg name="ticketStorage" ref="ticketStorage"/>-->
-<!--    </bean>-->
-
     <bean id="ticketStorage" class="com.epam.training.storage.ticket.TicketStorageImpl"/>
     <bean id="userStorage" class="com.epam.training.storage.user.UserStorageImpl"/>
     <bean id="eventStorage" class="com.epam.training.storage.event.EventStorageImpl"/>
-
 
 </beans>

@@ -6,26 +6,18 @@ import com.epam.training.model.user.User;
 import com.epam.training.service.event.EventService;
 import com.epam.training.service.ticket.TicketService;
 import com.epam.training.service.user.UserService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class BookingFacadeImpl implements BookingFacade {
 
     private final UserService userService;
     private final EventService eventService;
     private final TicketService ticketService;
-    private Log logger = LogFactory.getLog(BookingFacadeImpl.class);
 
-    // constructor-injection
-    private BookingFacadeImpl(
-            UserService userService, EventService eventService, TicketService ticketService) {
-        this.userService = userService;
-        this.eventService = eventService;
-        this.ticketService = ticketService;
-    }
 
     @Override
     public Event getEventById(long eventId) {
